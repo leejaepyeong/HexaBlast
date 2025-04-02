@@ -10,12 +10,12 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-CookApps_HexaBlast[Ll]ibrary/
-CookApps_HexaBlast[Tt]emp/
-CookApps_HexaBlast[Bb]uild/
-CookApps_HexaBlast[Bb]uilds/
-CookApps_HexaBlast[Ll]ogs/
-CookApps_HexaBlast[Uu]ser[Ss]ettings/
+/CookApps_HexaBlast[Ll]ibrary/
+/CookApps_HexaBlast[Tt]emp/
+/CookApps_HexaBlast[Bb]uild/
+/CookApps_HexaBlast[Bb]uilds/
+/CookApps_HexaBlast[Ll]ogs/
+/CookApps_HexaBlast[Uu]ser[Ss]ettings/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

@@ -1,0 +1,256 @@
+{
+    "dataList": [
+        {
+            "mapSize": {
+                "x": 5,
+                "y": 5
+            },
+            "blockList": [
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 25852
+                    },
+                    "blockType": 3,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0
+                }
+            ],
+            "floor": 1,
+            "name": "Stage 1"
+        },
+        {
+            "mapSize": {
+                "x": 2,
+                "y": 2
+            },
+            "blockList": [
+                {
+                    "name": "RedBlock",
+                    "blockTexture": {
+                        "instanceID": 25864
+                    },
+                    "blockType": 2,
+                    "blockColor": 2
+                },
+                {
+                    "name": "BlueBlock",
+                    "blockTexture": {
+                        "instanceID": 25856
+                    },
+                    "blockType": 2,
+                    "blockColor": 3
+                },
+                {
+                    "name": "YellowBlock",
+                    "blockTexture": {
+                        "instanceID": 25866
+                    },
+                    "blockType": 2,
+                    "blockColor": 5
+                },
+                {
+                    "name": "GreenBlock",
+                    "blockTexture": {
+                        "instanceID": 25858
+                    },
+                    "blockType": 2,
+                    "blockColor": 6
+                }
+            ],
+            "floor": 2,
+            "name": "Stage 2"
+        }
+    ]
+}
