@@ -5,6 +5,7 @@ using UnityEditor;
 using System.IO;
 using UnityEngine.UIElements;
 using System.Linq;
+using static Unity.Collections.AllocatorManager;
 
 namespace ProjectPuzzle
 {
@@ -24,7 +25,7 @@ namespace ProjectPuzzle
     }
     public class StageSettingEditor : EditorWindow
     {
-        bool isInit;
+        private bool isInit;
         private PuzzleBlockSetting puzzleBlockSetting;
         private PuzzleBlockSetting.PuzzleBlockPrefab brushBlock;
         private string path = "./Assets/Resources/DataJsons/StageSettingData.json";

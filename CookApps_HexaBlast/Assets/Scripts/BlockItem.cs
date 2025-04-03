@@ -14,13 +14,13 @@ namespace ProjectPuzzle
         public int X => x;
         public int Y => y;
 
-        public eBlockType type;
-        public eBlockColor color;
         public RectTransform myRect;
         public Image myImage;
 
         private MoveablePuzzle moveable;
         private Coroutine coFlicker = null;
+
+        public PuzzleBlockSetting.PuzzleBlockPrefab blockPrefab;
 
         //퍼즐 좌표 세팅
         public void SetCoordinate(int newX, int newY)
@@ -28,6 +28,7 @@ namespace ProjectPuzzle
             this.x = newX;
             this.y = newY;
         }
+
         public void UpdateFrame(float deltaTime)
         {
 
@@ -59,20 +60,10 @@ namespace ProjectPuzzle
         }
 
         //퍼즐 초기화
-        public void Init(int x, int y, eBlockColor newColor = eBlockColor.None)
+        public void Init(int x, int y)
         {
-            if (this.color != eBlockColor.None)
-            {
-                if (newColor == eBlockColor.None)
-                {
-                }
-                else
-                {
-                }
-            }
-
             SetCoordinate(x, y);
-            //SetPos(manager.Maker.GetPos(x, y));
+            SetPos(BlockManager.Instance.GetPos(x, y));
         }
 
 
@@ -94,7 +85,7 @@ namespace ProjectPuzzle
         //애니메이션이 끝난 후 처리
         public void EndDestroyAnimation()
         {
-            if (this.type == eBlockType.Normal)
+            if (blockPrefab.blockType == eBlockType.Normal)
             {
                 //manager.Maker.PuzzlePool.ReturnToPool(this);
             }

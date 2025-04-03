@@ -101,7 +101,7 @@ public class GameObjectPool
     {
         if(!rootObject)
         {
-            rootObject = new GameObject($"GameobjectPool_{name}");
+            rootObject = new GameObject($"{name}");
             GameObject.DontDestroyOnLoad(rootObject);
         }
 

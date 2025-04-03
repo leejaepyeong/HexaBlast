@@ -17,7 +17,7 @@ namespace ProjectPuzzle
 
         public void Move(float fillTime)
         {
-            //manager.SetPuzzle(X, Y, myPuzzle);
+            BlockManager.Instance.SetBlock(X, Y, blockItem);
 
             if (coMove != null)
             {
@@ -76,7 +76,7 @@ namespace ProjectPuzzle
             if (BlockManager.Instance.isProcess == true || BlockManager.Instance.isClick == false || 
                 BlockManager.Instance.selectBlock == blockItem || BlockManager.Instance.selectBlock == null) return;
 
-            //manager.SwapPuzzle(this.myPuzzle);
+            BlockManager.Instance.SwapPuzzle(blockItem);
 
         }
     }

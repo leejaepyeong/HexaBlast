@@ -52,6 +52,14 @@ namespace ProjectPuzzle
             curStage = data;
             ScneMoveAsync().Forget();
         }
+        public void SetStage(int floor)
+        {
+            if (dataList.Count == 0)
+                LoadJson();
+
+            var stage = dataList.Find(_ => _.floor == floor);
+            curStage = stage;
+        }
 
         private async UniTask ScneMoveAsync()
         {
