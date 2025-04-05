@@ -3,12 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.IO;
-using UnityEngine.UIElements;
-using System.Linq;
-using static Unity.Collections.AllocatorManager;
 
 namespace ProjectPuzzle
 {
+    [System.Serializable]
+    public class SaveStageData
+    {
+        public List<StageSettingData> dataList = new();
+    }
+    [System.Serializable]
+    public class BlockMission
+    {
+        public PuzzleBlockSetting.PuzzleBlockPrefab block;
+        public int count;
+
+        public BlockMission(PuzzleBlockSetting.PuzzleBlockPrefab block)
+        {
+            this.block = block;
+            count = 0;
+        }
+    }
     [System.Serializable]
     public class StageSettingData
     {
@@ -16,6 +30,7 @@ namespace ProjectPuzzle
         public List<PuzzleBlockSetting.PuzzleBlockPrefab> blockList = new List<PuzzleBlockSetting.PuzzleBlockPrefab>();
         public int floor;
         public string name;
+        public List<BlockMission> missionList = new List<BlockMission>();
 
         public StageSettingData(string name, int floor)
         {
@@ -23,6 +38,7 @@ namespace ProjectPuzzle
             this.floor = floor;
         }
     }
+#if UNITY_EDITOR
     public class StageSettingEditor : EditorWindow
     {
         private bool isInit;
@@ -60,6 +76,7 @@ namespace ProjectPuzzle
             GUIBlockPalette();
             GUIBlockEditor();
             GUIBottom();
+            GUIMission();
             GUILayout.EndVertical();
         }
 
@@ -90,6 +107,7 @@ namespace ProjectPuzzle
         public int mapSizeY;
         public int floor;
         public string mapName;
+        public List<BlockMission> missionList = new List<BlockMission>();
 
         private void GUIStage()
         {
@@ -144,6 +162,7 @@ namespace ProjectPuzzle
             mapName = data.name;
             mapSizeX = data.mapSize.x;
             mapSizeY = data.mapSize.y;
+            missionList = data.missionList;
 
             dataList.Sort(delegate(StageSettingData a, StageSettingData b) 
             {
@@ -216,14 +235,14 @@ namespace ProjectPuzzle
                         {
                             if (brushBlock != null)
                             {
-                                data.blockList[y * sizeX + x] = brushBlock;
+                                data.blockList[x * sizeY + y] = brushBlock;
                             }
                         }
 
-                        if (data.blockList[y * sizeX + x].blockTexture != null)
+                        if (string.IsNullOrEmpty(data.blockList[x * sizeY + y].name) == false)
                         {
                             var lastRect = GUILayoutUtility.GetLastRect();
-                            GUI.DrawTexture(lastRect, puzzleBlockSetting.dicPuzzleBlock[data.blockList[y * sizeX + x].name].blockTexture);
+                            GUI.DrawTexture(lastRect, puzzleBlockSetting.dicPuzzleBlock[data.blockList[x * sizeY + y].name].blockTexture);
                         }
                     }
 
@@ -242,6 +261,39 @@ namespace ProjectPuzzle
 
             EditorGUILayout.Separator();
         }
+        private void GUIMission()
+        {
+            if (GUILayout.Button(new GUIContent("Add Mission"), GUILayout.Width(80), GUILayout.Height(30)))
+            {
+                data.missionList.Add(new BlockMission(puzzleBlockSetting.blockList[0]));
+            }
+            if (GUILayout.Button(new GUIContent("Clear Mission"), GUILayout.Width(80), GUILayout.Height(30)))
+            {
+                data.missionList.Clear();
+            }
+
+            for (int i = 0; i < data.missionList.Count; i++)
+            {
+                GUILayout.BeginHorizontal();
+                if (GUILayout.Button("", GUILayout.Width(squareSize), GUILayout.Height(squareSize)))
+                {
+                    if (brushBlock != null)
+                    {
+                        data.missionList[i].block = brushBlock;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(data.missionList[i].block.name) == false)
+                {
+                    var lastRect = GUILayoutUtility.GetLastRect();
+                    GUI.DrawTexture(lastRect, puzzleBlockSetting.dicPuzzleBlock[data.missionList[i].block.name].blockTexture);
+                }
+
+                GUILayout.Label("Count", GUILayout.Width(80));
+                data.missionList[i].count = EditorGUILayout.IntField(data.missionList[i].count, GUILayout.Width(60));
+                GUILayout.EndHorizontal();
+            }
+        }
 
         private void InitBlocks(int size)
         {
@@ -259,11 +311,7 @@ namespace ProjectPuzzle
         }
 
         #region Json
-        [System.Serializable]
-        public class SaveStageData
-        {
-            public List<StageSettingData> dataList = new();
-        }
+        
         private void SaveJson()
         {
             data.name = mapName;
@@ -309,4 +357,5 @@ namespace ProjectPuzzle
         }
         #endregion
     }
+#endif
 }

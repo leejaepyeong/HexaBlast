@@ -19,6 +19,5 @@ namespace ProjectPuzzle
         Empty,
         Block,
         Normal,
-        Spin,
     }
 }

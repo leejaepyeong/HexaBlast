@@ -12,6 +12,7 @@ namespace ProjectPuzzle
     {
         private const string path = "./Assets/Resources/DataJsons/StageSettingData.json";
         private const string PLAYSCENE = "PuzzleScene";
+        private const string INTROSCENE = "IntroScene";
         private List<StageSettingData> dataList = new List<StageSettingData>();
         public List<StageSettingData> DataList => dataList;
 
@@ -28,12 +29,23 @@ namespace ProjectPuzzle
 
         public void LoadJson()
         {
-            StageSettingEditor.SaveStageData saveData = new();
-            if (File.Exists(path))
+            dataList.Clear();
+
+            var data = Resources.Load("DataJsons/StageSettingData");
+            if (data == null)
+                Debug.LogError("There is No stage ");
+            string jsonText = data.ToString();
+
+            var block = Resources.Load("Prefab/BackSlot");
+            if(block == null)
+                Debug.LogError("There is No block Data");
+
+            SaveStageData saveData = new();
+            if (string.IsNullOrEmpty(jsonText) == false)
             {
-                string decryptString = File.ReadAllText(path);
-                string jsonText = decryptString;
-                saveData = JsonUtility.FromJson<StageSettingEditor.SaveStageData>(jsonText);
+                //string decryptString = File.ReadAllText(path);
+                //string jsonTextT = decryptString;
+                saveData = JsonUtility.FromJson<SaveStageData>(jsonText);
 
                 for (int i = 0; i < saveData.dataList.Count; i++)
                 {
@@ -50,7 +62,7 @@ namespace ProjectPuzzle
         public void OnClickPlay(StageSettingData data)
         {
             curStage = data;
-            ScneMoveAsync().Forget();
+            ScneMoveAsync(PLAYSCENE).Forget();
         }
         public void SetStage(int floor)
         {
@@ -61,9 +73,14 @@ namespace ProjectPuzzle
             curStage = stage;
         }
 
-        private async UniTask ScneMoveAsync()
+        private async UniTask ScneMoveAsync(string sceneName)
         {
-            await SceneManager.LoadSceneAsync(PLAYSCENE, LoadSceneMode.Single);
+            await SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        }
+        public void OnClickBackIntro()
+        {
+            curStage = null;
+            ScneMoveAsync(INTROSCENE).Forget();
         }
     }
 }

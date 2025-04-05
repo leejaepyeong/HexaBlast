@@ -1,12 +1,9 @@
+#if UNITY_EDITOR
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System.IO;
-using System.Security.Cryptography;
-using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
-using Sirenix.Utilities.Editor;
 
 namespace ProjectPuzzle
 {
@@ -66,3 +63,4 @@ namespace ProjectPuzzle
         }
     }
 }
+#endif

@@ -41,7 +41,7 @@ namespace ProjectPuzzle
         {
             float curtime = 0.0f;
             Vector2 startPos = blockItem.myRect.anchoredPosition;
-            Vector2 targetPos = new Vector2();//manager.GetPos(x, y);
+            Vector2 targetPos = BlockManager.Instance.GetPos(x, y);
 
             while (curtime < fillTime)
             {
@@ -72,9 +72,11 @@ namespace ProjectPuzzle
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-
             if (BlockManager.Instance.isProcess == true || BlockManager.Instance.isClick == false || 
                 BlockManager.Instance.selectBlock == blockItem || BlockManager.Instance.selectBlock == null) return;
+            if (BlockManager.Instance.selectBlock.blockPrefab.blockType == eBlockType.Block ||
+                blockItem.blockPrefab.blockType == eBlockType.Block)
+                return;
 
             BlockManager.Instance.SwapPuzzle(blockItem);
 

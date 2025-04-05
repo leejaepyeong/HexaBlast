@@ -7,12 +7,13 @@
             },
             "blockList": [
                 {
-                    "name": "RedBlock",
+                    "name": "",
                     "blockTexture": {
-                        "instanceID": 25864
+                        "instanceID": 0
                     },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -20,7 +21,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -28,7 +30,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -36,7 +39,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -44,15 +48,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
-                },
-                {
-                    "name": "RedBlock",
-                    "blockTexture": {
-                        "instanceID": 25864
-                    },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -60,7 +57,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -68,7 +66,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -76,7 +75,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -84,15 +84,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
-                },
-                {
-                    "name": "RedBlock",
-                    "blockTexture": {
-                        "instanceID": 25864
-                    },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -100,15 +93,53 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "SpinItem",
                     "blockTexture": {
-                        "instanceID": 25852
+                        "instanceID": 26378
                     },
-                    "blockType": 3,
-                    "blockColor": 0
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
                 },
                 {
                     "name": "",
@@ -116,7 +147,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -124,15 +156,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
-                },
-                {
-                    "name": "RedBlock",
-                    "blockTexture": {
-                        "instanceID": 25864
-                    },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -140,7 +165,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -148,7 +174,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -156,7 +183,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -164,15 +192,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
-                },
-                {
-                    "name": "RedBlock",
-                    "blockTexture": {
-                        "instanceID": 25864
-                    },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -180,7 +201,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -188,7 +210,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -196,7 +219,8 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
                     "name": "",
@@ -204,53 +228,602 @@
                         "instanceID": 0
                     },
                     "blockType": 0,
-                    "blockColor": 0
+                    "blockColor": 0,
+                    "blockHP": 0
                 }
             ],
             "floor": 1,
-            "name": "Stage 1"
+            "name": "Stage1",
+            "missionList": [
+                {
+                    "block": {
+                        "name": "SpinItem",
+                        "blockTexture": {
+                            "instanceID": 26378
+                        },
+                        "blockType": 1,
+                        "blockColor": 0,
+                        "blockHP": 2
+                    },
+                    "count": 3
+                },
+                {
+                    "block": {
+                        "name": "RedBlock",
+                        "blockTexture": {
+                            "instanceID": 26380
+                        },
+                        "blockType": 2,
+                        "blockColor": 2,
+                        "blockHP": 0
+                    },
+                    "count": 20
+                }
+            ]
         },
         {
             "mapSize": {
-                "x": 2,
-                "y": 2
+                "x": 6,
+                "y": 10
             },
             "blockList": [
                 {
-                    "name": "RedBlock",
+                    "name": "",
                     "blockTexture": {
-                        "instanceID": 25864
+                        "instanceID": 0
                     },
-                    "blockType": 2,
-                    "blockColor": 2
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
-                    "name": "BlueBlock",
+                    "name": "",
                     "blockTexture": {
-                        "instanceID": 25856
+                        "instanceID": 0
                     },
-                    "blockType": 2,
-                    "blockColor": 3
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
-                    "name": "YellowBlock",
+                    "name": "",
                     "blockTexture": {
-                        "instanceID": 25866
+                        "instanceID": 0
                     },
-                    "blockType": 2,
-                    "blockColor": 5
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 },
                 {
-                    "name": "GreenBlock",
+                    "name": "",
                     "blockTexture": {
-                        "instanceID": 25858
+                        "instanceID": 0
                     },
-                    "blockType": 2,
-                    "blockColor": 6
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "SpinItem",
+                    "blockTexture": {
+                        "instanceID": 26378
+                    },
+                    "blockType": 1,
+                    "blockColor": 0,
+                    "blockHP": 2
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
+                },
+                {
+                    "name": "",
+                    "blockTexture": {
+                        "instanceID": 0
+                    },
+                    "blockType": 0,
+                    "blockColor": 0,
+                    "blockHP": 0
                 }
             ],
             "floor": 2,
-            "name": "Stage 2"
+            "name": "Stage 2",
+            "missionList": [
+                {
+                    "block": {
+                        "name": "SpinItem",
+                        "blockTexture": {
+                            "instanceID": 26378
+                        },
+                        "blockType": 1,
+                        "blockColor": 0,
+                        "blockHP": 2
+                    },
+                    "count": 8
+                }
+            ]
         }
     ]
 }

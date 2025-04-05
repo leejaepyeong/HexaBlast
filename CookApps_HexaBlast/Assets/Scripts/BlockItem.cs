@@ -17,10 +17,11 @@ namespace ProjectPuzzle
         public RectTransform myRect;
         public Image myImage;
 
-        private MoveablePuzzle moveable;
+        public MoveablePuzzle moveable;
         private Coroutine coFlicker = null;
 
         public PuzzleBlockSetting.PuzzleBlockPrefab blockPrefab;
+        public int blockHP;
 
         //퍼즐 좌표 세팅
         public void SetCoordinate(int newX, int newY)
@@ -29,10 +30,6 @@ namespace ProjectPuzzle
             this.y = newY;
         }
 
-        public void UpdateFrame(float deltaTime)
-        {
-
-        }
         //퍼즐위치 세팅
         public void SetPos(Vector2 pos)
         {
@@ -64,35 +61,37 @@ namespace ProjectPuzzle
         {
             SetCoordinate(x, y);
             SetPos(BlockManager.Instance.GetPos(x, y));
-        }
 
-
-
-        //퍼즐 터트릴때
-        public virtual void Pop(UnityAction callBack = null)
-        {
-            //if (manager.GetPuzzle(X, Y) == this)
-            //{
-            //    manager.SetPuzzle(X, Y, null);
-            //}
-
-            Destroy(this.gameObject);
-
-            BlockManager.Instance.Point += 100;
-            callBack?.Invoke();
-        }
-
-        //애니메이션이 끝난 후 처리
-        public void EndDestroyAnimation()
-        {
-            if (blockPrefab.blockType == eBlockType.Normal)
+            if(string.IsNullOrEmpty(blockPrefab.name))
             {
-                //manager.Maker.PuzzlePool.ReturnToPool(this);
+                myImage.sprite = null;
+                return;
             }
             else
             {
-                Destroy(this.gameObject);
+                Texture2D texture = (Texture2D)BlockManager.Instance.puzzleBlockSetting.dicPuzzleBlock[blockPrefab.name].blockTexture;
+                Rect rect = new Rect(0, 0, texture.width, texture.height);
+                myImage.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
             }
+            blockHP = blockPrefab.blockHP;
         }
+
+        public virtual void Pop(UnityAction callBack = null)
+        {
+            blockHP -= 1;
+            if (blockHP > 0) return;
+
+            if (BlockManager.Instance.GetBlock(X, Y) == this)
+            {
+                BlockManager.Instance.SetBlock(X, Y, null);
+            }
+
+            BlockManager.Instance.ReturnBlock(this);
+
+            BlockManager.Instance.PointUpdate(100);
+            BlockManager.Instance.CheckMission(this);
+            callBack?.Invoke();
+        }
+
     }
 }

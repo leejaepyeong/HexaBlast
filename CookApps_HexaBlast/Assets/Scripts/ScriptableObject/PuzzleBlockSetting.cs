@@ -15,6 +15,8 @@ namespace ProjectPuzzle
             public Texture blockTexture;
             public eBlockType blockType;
             public eBlockColor blockColor;
+            [ShowIf("@blockType == eBlockType.Block")]
+            public int blockHP;
 
             public bool IsMatch(string searchString)
             {

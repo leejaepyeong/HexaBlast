@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7867903416147405665}
   - component: {fileID: 8722604120694294130}
   - component: {fileID: 4270280308276908125}
+  - component: {fileID: -555106619038453825}
   m_Layer: 5
   m_Name: BlockItem
   m_TagString: Untagged
@@ -59,10 +60,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2f828f0eaf4d6f4db31b20d25d4dbfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  color: 0
   myRect: {fileID: 7867903416147405665}
-  myImage: {fileID: 0}
+  myImage: {fileID: 2905027400221739569}
+  moveable: {fileID: -555106619038453825}
+  blockPrefab:
+    name: 
+    blockTexture: {fileID: 0}
+    blockType: 0
+    blockColor: 0
+--- !u!114 &-555106619038453825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540844867774349189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d124c682b60bd340a90f910c5866c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockItem: {fileID: 4270280308276908125}
 --- !u!1 &3097632100599826223
 GameObject:
   m_ObjectHideFlags: 0

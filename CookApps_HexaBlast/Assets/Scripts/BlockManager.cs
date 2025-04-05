@@ -4,19 +4,65 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System;
+using TMPro;
+using static Unity.Collections.AllocatorManager;
 
 namespace ProjectPuzzle
 {
     public class BlockManager : MonoBehaviour
     {
+        [System.Serializable]
+        public class MissionSlot
+        {
+            public GameObject objRoot;
+            public Image missionIcon;
+            public TextMeshProUGUI textCount;
+
+            private BlockMission blockMission;
+            private int missionCount;
+
+            public void Set(BlockMission blockMission)
+            {
+                objRoot.SetActive(true);
+                if (string.IsNullOrEmpty(blockMission.block.name))
+                {
+                    missionIcon.sprite = null;
+                    return;
+                }
+                else
+                {
+                    Texture2D texture = (Texture2D)BlockManager.Instance.puzzleBlockSetting.dicPuzzleBlock[blockMission.block.name].blockTexture;
+                    Rect rect = new Rect(0, 0, texture.width, texture.height);
+                    missionIcon.sprite = Sprite.Create(texture, rect, new Vector2(0.5f, 0.5f));
+                }
+
+                missionCount = blockMission.count;
+                textCount.text = $"{missionCount}";
+            }
+            public void MissionCount()
+            {
+                missionCount = Math.Max(0, missionCount - 1);
+                textCount.text = $"{missionCount}";
+            }
+
+            public bool CheckMissionClear()
+            {
+                return missionCount <= 0;
+            }
+        }
+
         public static BlockManager Instance;
+
         public GridLayoutGroup grid;
+        public Transform blockAttach;
+        public TextMeshProUGUI textPoint;
+        public Button buttonGameEnd;
+        public int testStage = 1;
 
         public BlockItem[,] blockSlotMatrix;
         public GameObject[,] backSlotMatrix;
 
-        public int Point;
-        public int testStage = 1;
+        private int Point;
 
         public bool isClick;
         public bool isProcess;
@@ -27,6 +73,10 @@ namespace ProjectPuzzle
 
         private List<BlockItem> blockList = new List<BlockItem>();
         private GameObjectPool gameobjectPool;
+        public PuzzleBlockSetting puzzleBlockSetting;
+
+        public List<MissionSlot> missionList = new List<MissionSlot>();
+        private Dictionary<string, MissionSlot> dicMission = new Dictionary<string, MissionSlot>();
 
         private const string BACKSLOT_PATH = "Prefab/BackSlot";
         private const string BLOCKSLOT_PATH = "Prefab/BlockItem";
@@ -36,23 +86,25 @@ namespace ProjectPuzzle
                 Instance = this;
 
             Init();
+            buttonGameEnd.onClick.AddListener(BackToIntro);
         }
 
-        private void Update()
+        private void BackToIntro()
         {
-            if (isInit == false) return;
-
-            for (int i = 0; i < blockList.Count; i++)
-            {
-                blockList[i].UpdateFrame(Time.deltaTime);
-            }
+            if (isProcess) return;
+            Manager.Instance.OnClickBackIntro();
         }
 
         public void Init()
         {
+            puzzleBlockSetting = Resources.Load<PuzzleBlockSetting>("ScriptableObject/PuzzleBlockSetting");
+            puzzleBlockSetting.Set();
+
             gameobjectPool = new GameObjectPool("BlockObjectPool");
             SettingMap();
+            SetMission();
             Point = 0;
+            textPoint.text = Point.ToString();
             isInit = true;
         }
 
@@ -63,39 +115,90 @@ namespace ProjectPuzzle
 
             stageData = Manager.Instance.curStage;
             int mapSize = stageData.mapSize.x * stageData.mapSize.y;
-            grid.constraintCount = stageData.mapSize.x;
+            grid.constraintCount = stageData.mapSize.y;
 
-            blockSlotMatrix = new BlockItem[stageData.mapSize.y, stageData.mapSize.x];
-            backSlotMatrix = new GameObject[stageData.mapSize.y, stageData.mapSize.x];
+            blockSlotMatrix = new BlockItem[stageData.mapSize.x, stageData.mapSize.y];
+            backSlotMatrix = new GameObject[stageData.mapSize.x, stageData.mapSize.y];
 
-            for (int i = 0; i < stageData.mapSize.y; i++)
+            for (int i = 0; i < stageData.mapSize.x; i++)
             {
-                for (int j = 0; j < stageData.mapSize.x; j++)
+                for (int j = 0; j < stageData.mapSize.y; j++)
                 {
                     var obj = gameobjectPool.Get(BACKSLOT_PATH);
                     obj.transform.SetParent(grid.transform);
                     obj.transform.position = Vector3.zero;
                     obj.transform.localScale = Vector3.one;
                     backSlotMatrix[i, j] = obj;
-                    BlockItem blockItem = new BlockItem();
-                    blockItem.blockPrefab = stageData.blockList[i * stageData.mapSize.x + j];
-                    blockSlotMatrix[i, j] = blockItem;
                 }
             }
 
-            InitStartBlock();
+            SettingMapAsync().Forget();
         }
-
-        private void InitStartBlock()
+        private async UniTask SettingMapAsync()
         {
-            int mapSize = stageData.mapSize.x * stageData.mapSize.y;
+            await UniTask.Yield(PlayerLoopTiming.LastUpdate);
+            await UniTask.Yield(PlayerLoopTiming.LastUpdate);
 
+            for (int i = 0; i < stageData.mapSize.x; i++)
+            {
+                for (int j = 0; j < stageData.mapSize.y; j++)
+                {
+                    BlockItem blockItem;
+                    if (stageData.blockList[i * stageData.mapSize.y + j].blockType == eBlockType.Empty)
+                        blockItem = MakeNewBlock(i, j, eBlockType.Normal);
+                    else
+                        blockItem = MakeNewBlock(i, j, stageData.blockList[i * stageData.mapSize.y + j]);
 
+                    blockSlotMatrix[i, j] = blockItem;
+                }
+            }
+            Fill();
         }
 
+        private void SetMission()
+        {
+            dicMission.Clear();
+            for (int i = 0; i < stageData.missionList.Count; i++)
+            {
+                missionList[i].Set(stageData.missionList[i]);
+                dicMission.TryAdd(stageData.missionList[i].block.name, missionList[i]);
+            }
+        }
+        private void CheckGameEnd()
+        {
+            foreach (var mission in dicMission)
+            {
+                if (mission.Value.CheckMissionClear() == false) return;
+            }
+            BackToIntro();
+        }
+        public void CheckMission(BlockItem block)
+        {
+            if (dicMission.TryGetValue(block.blockPrefab.name, out var missionSlot))
+                missionSlot.MissionCount();
+        }
+        public void PointUpdate(int point)
+        {
+            Point += point;
+            textPoint.text = Point.ToString();
+        }
+
+
+        public BlockItem GetBlock(int x, int y)
+        {
+            if (IsOutOfIndex(x, y)) return null;
+
+            return blockSlotMatrix[x, y];
+        }
         public void SetBlock(int x, int y, BlockItem blockItem)
         {
+            if (IsOutOfIndex(x, y)) return;
 
+            blockSlotMatrix[x, y] = blockItem;
+        }
+        public void ReturnBlock(BlockItem block)
+        {
+            gameobjectPool.Return(block.gameObject);
         }
 
         public bool IsOutOfIndex(int x, int y)
@@ -108,9 +211,10 @@ namespace ProjectPuzzle
         public void SwapPuzzle(BlockItem swapBlock)
         {
             isClick = false;
+            FindMatchable(false);
 
-            if((selectBlock.X == swapBlock.X && (selectBlock.Y == swapBlock.Y -1 || selectBlock.Y == swapBlock.Y + 1)) ||
-               (selectBlock.Y == swapBlock.X && (selectBlock.X == swapBlock.X - 1 || selectBlock.X == swapBlock.X + 1)))
+            if ((selectBlock.X == swapBlock.X && (selectBlock.Y == swapBlock.Y -1 || selectBlock.Y == swapBlock.Y + 1)) ||
+               (selectBlock.Y == swapBlock.Y && (selectBlock.X == swapBlock.X - 1 || selectBlock.X == swapBlock.X + 1)))
             {
                 SwapPuzzleAsync(swapBlock).Forget();
             }
@@ -118,18 +222,37 @@ namespace ProjectPuzzle
 
         private async UniTask SwapPuzzleAsync(BlockItem swapBlock)
         {
+            int tempX = selectBlock.X;
+            int tempY = selectBlock.Y;
+
             isProcess = true;
             selectBlock.SetAndMove(swapBlock.X, swapBlock.Y);
-            swapBlock.SetAndMove(selectBlock.X, selectBlock.Y);
+            swapBlock.SetAndMove(tempX, tempY);
+
+            StartCoroutine(CheckPuzzleCo((isNeedFill) => 
+            {
+                if (isNeedFill)
+                    Fill();
+                else
+                {
+                    swapBlock.SetAndMove(selectBlock.X, selectBlock.Y);
+                    selectBlock.SetAndMove(tempX, tempY);
+                    isProcess = false;
+                    selectBlock = null;
+                    FindMatchable(true);
+                }
+            }));
+
+            await UniTask.Yield(PlayerLoopTiming.LastUpdate);
         }
 
-        #region 퍼즐 채우기, 터트리기 탐색
+        #region MatchPuzzle, Fill
 
         Coroutine fillco = null;
 
-        //채우고 생성하는 함수
         public void Fill()
         {
+            FindMatchable(false);
             if (fillco == null)
             {
                 fillco = StartCoroutine(FillCor());
@@ -146,7 +269,6 @@ namespace ProjectPuzzle
             {
                 while (FillRoutine())
                 {
-                    //내려오는 시간 0.1초 기다려줘야함
                     yield return new WaitForSeconds(0.1f);
                 }
 
@@ -158,6 +280,8 @@ namespace ProjectPuzzle
 
             isProcess = false;
             fillco = null;
+
+            FindMatchable(true);
         }
 
 
@@ -174,7 +298,7 @@ namespace ProjectPuzzle
                     BlockItem curPuzzle = blockSlotMatrix[i, j];
                     BlockItem belowPuzzle = blockSlotMatrix[i, j + 1];
 
-                    if (belowPuzzle == null) //무언가 없다면 그냥 내림
+                    if (belowPuzzle == null)
                     {
                         PuzzleChange(curPuzzle, i, j + 1);
                         isBlockMove = true;
@@ -203,13 +327,12 @@ namespace ProjectPuzzle
                 }
             }
 
-
-            //최상단 퍼즐 생성해줌
             for (int i = 0; i < stageData.mapSize.x; i++)
             {
                 if (blockSlotMatrix[i, 0] == null)
                 {
-                    BlockItem newPuzzle = MakeNewBlock(i, -1, eBlockType.Normal);
+                    BlockItem newPuzzle = MakeNewBlock(i, 0, eBlockType.Normal);
+                    newPuzzle.transform.position += new Vector3(0,grid.cellSize.y,0);
 
                     newPuzzle.SetCoordinate(i, 0);
                     newPuzzle.Move(0.1f);
@@ -225,12 +348,32 @@ namespace ProjectPuzzle
         {
             BlockItem newBlock = null;
             newBlock = gameobjectPool.Get(BLOCKSLOT_PATH).GetComponent<BlockItem>();
-
+            newBlock.transform.SetParent(blockAttach);
+            newBlock.transform.localScale = Vector3.one;
+            newBlock.blockPrefab = GetBlockPrefab(blockType);
             newBlock.Init(x,y);
+
             return newBlock;
         }
+        public BlockItem MakeNewBlock(int x, int y, PuzzleBlockSetting.PuzzleBlockPrefab prefab)
+        {
+            BlockItem newBlock = null;
+            newBlock = gameobjectPool.Get(BLOCKSLOT_PATH).GetComponent<BlockItem>();
+            newBlock.transform.SetParent(blockAttach);
+            newBlock.transform.localScale = Vector3.one;
+            newBlock.blockPrefab = prefab;
+            newBlock.Init(x, y);
 
-        //퍼즐 이동 후 배열,x,y값 바꾸기
+            return newBlock;
+        }
+        private PuzzleBlockSetting.PuzzleBlockPrefab GetBlockPrefab(eBlockType blockType)
+        {
+            var list = puzzleBlockSetting.blockList.FindAll(_ => _.blockType == blockType);
+
+            int ranNum = UnityEngine.Random.Range(0, list.Count);
+            return list[ranNum];
+        }
+
         void PuzzleChange(BlockItem curBlock, int newX, int newY)
         {
             blockSlotMatrix[curBlock.X, curBlock.Y] = null;
@@ -249,8 +392,6 @@ namespace ProjectPuzzle
             return true;
         }
 
-
-        //시계방향으로 검사 배열
         private int[] dx = new int[] { 0, 1, 0, -1 };
         private int[] dy = new int[] { -1, 0, 1, 0 };
 
@@ -262,9 +403,9 @@ namespace ProjectPuzzle
             List<BlockItem> destroyPuzzles = new List<BlockItem>();
             Queue<BlockItem> searchQueue = new Queue<BlockItem>();
 
-            for (int j = 0; j < stageData.mapSize.x; j++)
+            for (int j = 0; j < stageData.mapSize.y; j++)
             {
-                for (int i = 0; i < stageData.mapSize.y; i++)
+                for (int i = 0; i < stageData.mapSize.x; i++)
                 {
 
                     if (blockSlotMatrix[i, j] == null || blockSlotMatrix[i, j].blockPrefab.blockColor == eBlockColor.None) continue;
@@ -272,8 +413,6 @@ namespace ProjectPuzzle
                     HashSet<BlockItem> visitPuzzles = new HashSet<BlockItem>();
                     searchQueue.Enqueue(blockSlotMatrix[i, j]);
                     visitPuzzles.Add(blockSlotMatrix[i, j]);
-
-                    eBlockType rewardType = eBlockType.Empty;
 
                     while (searchQueue.Count != 0)
                     {
@@ -291,7 +430,6 @@ namespace ProjectPuzzle
                         findPuzzles.Add(down);
                         findPuzzles.Add(left);
 
-                        //현재 퍼즐에서 상하좌우 탐색
                         for (int k = 0; k < 4; k++)
                         {
                             int newX = curPuzzle.X + dx[k];
@@ -304,7 +442,6 @@ namespace ProjectPuzzle
 
                                 if (newPuzzle == null || curPuzzle.blockPrefab.blockColor != newPuzzle.blockPrefab.blockColor) break;
 
-                                //방문하지 않은 퍼즐이라면 큐에 넣어줌
                                 if (visitPuzzles.Add(newPuzzle))
                                 {
                                     searchQueue.Enqueue(newPuzzle);
@@ -319,8 +456,6 @@ namespace ProjectPuzzle
 
                             } while (true);
                         }
-
-                        //여기서부터 아이템 생성조건에 부합한지 체크
 
                         if ((findPuzzles[0].Count + findPuzzles[1].Count + findPuzzles[2].Count + findPuzzles[3].Count) < 2) continue;
 
@@ -342,7 +477,6 @@ namespace ProjectPuzzle
                             destroyPuzzles.AddRange(findPuzzles[3]);
                         }
                     }
-                    //bfs끝
 
 
                     if (destroyPuzzles.Count >= 1)
@@ -359,20 +493,14 @@ namespace ProjectPuzzle
                 yield return null;
             }
 
-            //터치는 시간만큼 기다려줘야함.
-
             if (isDestroyBlock)
             {
-                //내려오는 소리
-                //soundManager.PlayEffect(6);
                 yield return new WaitForSeconds(0.1f);
             }
 
             callBack?.Invoke(isDestroyBlock);
 
         }
-
-        // 발견한 퍼즐들 터트리는 루틴
         public void PopRoutine(List<BlockItem> destroyPuzzles)
         {
             foreach (BlockItem puzzle in destroyPuzzles)
@@ -399,7 +527,181 @@ namespace ProjectPuzzle
 
         public Vector2 GetPos(int x, int y)
         {
-            return backSlotMatrix[x, y].transform.position;
+            return backSlotMatrix[x, y].transform.localPosition;
         }
+
+        #region Find Can Match
+        private float hintTime = 2f;
+        private Coroutine coHintTimeCheck;
+
+        public void FindMatchable(bool isCheck)
+        {
+            if (coHintTimeCheck != null)
+            {
+                StopCoroutine(coHintTimeCheck);
+            }
+
+            if(isCheck)
+                coHintTimeCheck = StartCoroutine(CoFindMatchable());
+
+            CheckGameEnd();
+        }
+
+        private IEnumerator CoFindMatchable()
+        {
+            float time = 0.0f;
+
+            while (time < hintTime)
+            {
+                time += Time.deltaTime;
+
+                yield return null;
+            }
+
+            try
+            {
+                if (FindMatch(3))
+                    yield break;
+
+                for (int j = 0; j < stageData.mapSize.y; j++)
+                {
+                    for (int i = 0; i < stageData.mapSize.x; i++)
+                    {
+                        if (blockSlotMatrix[i, j] != null && blockSlotMatrix[i, j].blockPrefab.blockType != eBlockType.Block)
+                        {
+                            blockSlotMatrix[i, j].Pop();
+                        }
+                    }
+                }
+                Fill();
+            }
+            catch
+            {
+                yield break;
+            }
+
+            yield return null;
+
+        }
+
+        public bool FindMatch(int MatchCount)
+        {
+
+            for (int j = 0; j < stageData.mapSize.y; j++)
+            {
+                for (int i = 0; i < stageData.mapSize.x; i++)
+                {
+                    List<BlockItem> findPuzzle = new List<BlockItem>();
+                    BlockItem curPuzzle = blockSlotMatrix[i, j];
+
+                    if (curPuzzle == null || curPuzzle.blockPrefab.blockType == eBlockType.Block) continue;
+
+                    if (!IsOutOfIndex(i + MatchCount - 1, j))
+                    {
+                        for (int k = 1; k < MatchCount; k++)
+                        {
+                            findPuzzle.Add(GetBlock(i + k, j));
+                        }
+
+                        if (findPuzzle.FindAll(x => x.blockPrefab.blockColor == curPuzzle.blockPrefab.blockColor).Count == MatchCount - 2)
+                        {
+                            BlockItem anotherPuzzle = findPuzzle.Find(x => x.blockPrefab.blockColor != curPuzzle.blockPrefab.blockColor);
+                            findPuzzle.Remove(anotherPuzzle);
+                            if (anotherPuzzle.blockPrefab.blockType == eBlockType.Block) continue;
+
+                            for (int h = 0; h < 2; h++)
+                            {
+                                if (FindSameColor(anotherPuzzle, 1, curPuzzle.blockPrefab.blockColor, h == 0 ? eDir.Up : eDir.Down) != null)
+                                {
+                                    return true;
+                                }
+                            }
+
+                            if (anotherPuzzle.X == curPuzzle.X + 2)
+                            {
+                                if (FindSameColor(anotherPuzzle, 1, curPuzzle.blockPrefab.blockColor, eDir.Right) != null)
+                                {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+
+                    findPuzzle.Clear();
+
+                    if (!IsOutOfIndex(i, j + MatchCount - 1))
+                    {
+                        for (int k = 1; k < MatchCount; k++)
+                        {
+                            findPuzzle.Add(GetBlock(i, j + k));
+                        }
+
+                        if (findPuzzle.FindAll(x => x.blockPrefab.blockColor == curPuzzle.blockPrefab.blockColor).Count == MatchCount - 2)
+                        {
+                            BlockItem anotherPuzzle = findPuzzle.Find(x => x.blockPrefab.blockColor != curPuzzle.blockPrefab.blockColor);
+                            findPuzzle.Remove(anotherPuzzle);
+                            if (anotherPuzzle.blockPrefab.blockType == eBlockType.Block) continue;
+
+                            for (int h = 0; h < 2; h++)
+                            {
+                                if (FindSameColor(anotherPuzzle, 1, curPuzzle.blockPrefab.blockColor, h == 0 ? eDir.Right : eDir.Left) != null)
+                                {
+                                    return true;
+                                }
+                            }
+
+                            if (anotherPuzzle.Y == curPuzzle.Y + 2)
+                            {
+                                if (FindSameColor(anotherPuzzle, 1, curPuzzle.blockPrefab.blockColor, eDir.Down) != null)
+                                {
+                                    return true;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public enum eDir
+        {
+            Up,
+            Down,
+            Left,
+            Right
+        }
+        public BlockItem FindSameColor(BlockItem puzzle, int index, eBlockColor color,eDir dir)
+        {
+            BlockItem findPuzzle = null;
+
+            switch (dir)
+            {
+                case eDir.Up:
+                    findPuzzle = GetBlock(puzzle.X, puzzle.Y - index);
+                    break;
+
+                case eDir.Right:
+                    findPuzzle = GetBlock(puzzle.X + index, puzzle.Y);
+                    break;
+
+                case eDir.Down:
+                    findPuzzle = GetBlock(puzzle.X, puzzle.Y + index);
+                    break;
+
+                case eDir.Left:
+                    findPuzzle = GetBlock(puzzle.X - index, puzzle.Y);
+                    break;
+            }
+
+            if (findPuzzle == null || findPuzzle.blockPrefab.blockType == eBlockType.Block || findPuzzle.blockPrefab.blockColor != color) return null;
+
+            return findPuzzle;
+
+        }
+        #endregion
     }
 }

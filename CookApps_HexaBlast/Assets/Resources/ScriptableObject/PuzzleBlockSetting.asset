@@ -14,32 +14,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockList:
   - name: RedBlock
-    blockSprite: {fileID: 21300000, guid: 318133a33ecb2d84eb75ed8f55ced1d3, type: 3}
     blockTexture: {fileID: 2800000, guid: 318133a33ecb2d84eb75ed8f55ced1d3, type: 3}
     blockType: 2
     blockColor: 2
+    blockHP: 0
   - name: BlueBlock
-    blockSprite: {fileID: 21300000, guid: 6a6b8fb9caaa75a42a40ce6e711326ad, type: 3}
     blockTexture: {fileID: 2800000, guid: 6a6b8fb9caaa75a42a40ce6e711326ad, type: 3}
     blockType: 2
     blockColor: 3
+    blockHP: 0
   - name: YellowBlock
-    blockSprite: {fileID: 21300000, guid: e4a9742dc0d27a840835d1212b8591a4, type: 3}
     blockTexture: {fileID: 2800000, guid: e4a9742dc0d27a840835d1212b8591a4, type: 3}
     blockType: 2
     blockColor: 5
+    blockHP: 0
   - name: GreenBlock
-    blockSprite: {fileID: 21300000, guid: 6ff937dbb4003e94db0aaaa9c3448f9c, type: 3}
     blockTexture: {fileID: 2800000, guid: 6ff937dbb4003e94db0aaaa9c3448f9c, type: 3}
     blockType: 2
     blockColor: 6
+    blockHP: 0
   - name: PurpleBlock
-    blockSprite: {fileID: 21300000, guid: 5e25169021283f343bc9743b9d521e62, type: 3}
     blockTexture: {fileID: 2800000, guid: 5e25169021283f343bc9743b9d521e62, type: 3}
     blockType: 2
     blockColor: 4
+    blockHP: 0
   - name: SpinItem
-    blockSprite: {fileID: 21300000, guid: cd758aa7764cf82438a7eaf794ff01a1, type: 3}
     blockTexture: {fileID: 2800000, guid: cd758aa7764cf82438a7eaf794ff01a1, type: 3}
-    blockType: 3
+    blockType: 1
     blockColor: 0
+    blockHP: 2
